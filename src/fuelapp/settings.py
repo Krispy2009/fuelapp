@@ -29,13 +29,17 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = (
+DEFAULT_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+)
+
+LOCAL_APPS = (
+    'prices',		
 )
 
 MIDDLEWARE_CLASSES = (
@@ -47,6 +51,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+
+INSTALLED_APPS = DEFAULT_APPS + LOCAL_APPS
 
 ROOT_URLCONF = 'fuelapp.urls'
 
