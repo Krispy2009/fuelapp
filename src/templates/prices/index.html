@@ -13,8 +13,12 @@
         <a href="/prices/aboutus/">About Us</a><br />
 		<img src="{% static "img/nozzle.jpg" %}" height="200px" width="350px"/>
 		{% for station in stations %}
-			{{station.name}}, {{station.city}} : {{station.company}}
+			<li><a href="station/{{station.slug}}">{{station.name}}</a>, {{station.city}} : {{station.company}}</li>
 		{% endfor %}
+		
+		<div id='cheapest'>
+			This is the cheapest station today: {{cheapest_station}}
+		</div>
     </body>
 
 </html>
