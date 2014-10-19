@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
+    <head>
+        <title>FuelApp</title>
+        <link rel="stylesheet" href="{% static "css/base.css" %}" /> <!-- CSS -->
+        <script src="{% static "js/jquery.js" %}"></script> <!-- JavaScript -->
+    </head>
+
+    <body>
+        <h1>About Us</h1>
+        	<h3>This is the About Us page..</h3>
+ 			<span>
+				For now its just us! <strong>{{ boldmessage }}</strong>
+			</span>
+			<br />
+        <a href="../../prices">Go back home</a>
+		<br />
+		<img src="{% static "img/nozzle.jpg" %}" />
+    </body>
+
+</html>

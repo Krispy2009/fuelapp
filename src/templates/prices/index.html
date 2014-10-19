@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
+    <head>
+        <title>FuelApp</title>
+        <link rel="stylesheet" href="{% static "css/base.css" %}" /> <!-- CSS -->
+        <script src="{% static "js/jquery.js" %}"></script> <!-- JavaScript -->
+    </head>
+
+    <body>
+        <h1>FuelApp...</h1>
+        hello world! <strong>{{ boldmessage }}</strong><br />
+        <a href="/prices/aboutus/">About Us</a><br />
+		<img src="{% static "img/nozzle.jpg" %}" height="200px" width="350px"/>
+		{% for station in stations %}
+			{{station.name}}, {{station.city}} : {{station.company}}
+		{% endfor %}
+    </body>
+
+</html>
+
