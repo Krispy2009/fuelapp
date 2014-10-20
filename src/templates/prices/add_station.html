@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add Station</title>
+    </head>
+
+    <body>
+        <h1>Add a Station</h1>
+
+        <form id="station_form" method="post" action="/prices/add_station/">
+
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field.help_text }}
+                {{ field }}
+            {% endfor %}
+
+            <input type="submit" name="submit" value="Add Station" />
+        </form>
+    </body>
+
+</html>

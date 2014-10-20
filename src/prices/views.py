@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+
 from .models import Station, Product
+from fuelapp.forms import StationForm
 
 # Create your views here.
 
@@ -37,3 +39,22 @@ def station(request, station_name_slug):
         pass
     
     return render(request, 'prices/station.html', ctx)
+    
+def add_station(request):
+    if request.method == 'POST':
+        form = StationForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            # Now call the index() view.
+            # The user will be shown the homepage.
+            return index(request)
+        else:
+            # The supplied form contained errors - just print them to the terminal.
+            print form.errors
+    else:
+        # If the request was not a POST, display the form to enter details.
+        form = StationForm()
+
+    # Bad form (or form details), no form supplied...
+    # Render the form with error messages (if any).
+    return render(request, 'prices/add_station.html', {'form': form})
