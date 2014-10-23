@@ -1,16 +1,15 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Station - {{station.name}}</title>
-    </head>
+{% extends 'base.html' %}
 
-    <body>
+{% load staticfiles %}
+
+{% block title %}{{ station.name }}{% endblock %}
+{% block body_block %}
         <h1>{{ station.name }}</h1>
         {% if station %}
             {% if products %}
             <ul>
                 {% for prod in products %}
-                <li><a href="{{ prod.name }}">{{prod.name}} - {{ prod.price }} - {{prod.date}}</a></li>
+                <li><a href="{{ prod.name }}">{{prod.name}} </a> | {{ prod.price }} | {{prod.date}}</li>
                 {% endfor %}
             </ul>
             {% else %}
@@ -19,5 +18,8 @@
         {% else %}
             This station does not exist!
         {% endif %}
-    </body>
-</html>
+ 		{% if user.is_authenticated %}
+			<a href="{% url 'add_price' station.slug %}"> Add price </a>
+		{% else %}
+		{% endif %}
+{% endblock %}

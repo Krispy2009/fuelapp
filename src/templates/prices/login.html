@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>FuelApp - Login</title>
-	</head>
-	<body>
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block body_block %}
 		<h1>Login</h1>
 		<form action="/prices/login/" id='login_form' method='post'>
 			{% csrf_token %}
@@ -14,5 +13,4 @@
 			<input type="submit" value="Login" />
 			
 		</form>
-	</body>
-</html>
+{% endblock %}

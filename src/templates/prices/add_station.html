@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Add Station</title>
-    </head>
+{% extends 'base.html' %}
 
-    <body>
+{% load staticfiles %}
+{% block body_block %}
+
         <h1>Add a Station</h1>
 
-        <form id="station_form" method="post" action="/prices/add_station/">
+        <form id="station_form" method="post" action="{% url 'add_station' %}">
 
             {% csrf_token %}
             {% for hidden in form.hidden_fields %}
@@ -22,6 +20,4 @@
 
             <input type="submit" name="submit" value="Add Station" />
         </form>
-    </body>
-
-</html>
+{% endblock %}

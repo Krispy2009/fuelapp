@@ -85,7 +85,9 @@ def add_station(request):
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
     return render(request, 'prices/add_station.html', {'form': form})
-    
+
+def add_price(request, station_name_slug):
+    return HttpResponse('Will eventually add an add price page :) ')
     
 def register(request):
     
