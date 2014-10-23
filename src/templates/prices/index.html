@@ -9,6 +9,15 @@
 
     <body>
         <h1>FuelApp...</h1>
+		<div id='login_form'>
+			{% if not user.is_authenticated %}
+			    <a href="/prices/register/">Register Here </a>
+				<a href="/prices/login/"> Login </a>
+			{% else %}
+				<a href="/prices/logout/"> Logout </a>
+			{% endif %}
+
+		</div>
         hello world! <strong>{{ boldmessage }}</strong><br />
         <a href="/prices/aboutus/">About Us</a><br />
 		<img src="{% static "img/nozzle.jpg" %}" height="200px" width="350px"/>

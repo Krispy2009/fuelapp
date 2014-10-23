@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>FuelApp - Register</title>
+		<body>
+			<h1> Sign Up for FuelApp</h1>
+			{% if registered %}
+				<span> Thanks for registering! </span>
+				<a href='/prices/'> Go Home </a>
+			{% else %}
+				<span> Register here! </span>
+				<form action="/prices/register/" method="post" id="user_form" accept-charset="utf-8" enctype="multipart/form-data">
+					{% csrf_token %}
+					{{user_form.as_p}}
+					{{profile_form.as_p}}
+
+					<p><input type="submit" value="Register"></p>
+				</form>
+			{% endif %}
+		</body>
+	</head>
+</html>

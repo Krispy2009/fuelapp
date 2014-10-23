@@ -1,8 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+
 
 from .models import Station, Product
-from fuelapp.forms import StationForm
+from fuelapp.forms import StationForm, UserForm, UserProfileForm
 
 # Create your views here.
 
@@ -18,6 +21,30 @@ def index(request):
     }
     return render(request, 'prices/index.html', ctx)
 
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        
+        user = authenticate(username=username, password=password)
+        
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect('/prices/')
+            else:
+                return HttpResponse('Invalid account used!')
+        else:
+            print "Invalid login details: {0}, {1}".format(username, password)
+            return HttpResponse("Invalid login details supplied.")
+            
+    else:
+        return render(request, 'prices/login.html', {})
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect('/prices')
+    
 def aboutus(request):
     ctx = {'boldmessage' : 'Hey ya'}
     return render(request, 'prices/about.html', ctx)
@@ -39,7 +66,7 @@ def station(request, station_name_slug):
         pass
     
     return render(request, 'prices/station.html', ctx)
-    
+@login_required    
 def add_station(request):
     if request.method == 'POST':
         form = StationForm(request.POST)
@@ -58,3 +85,46 @@ def add_station(request):
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
     return render(request, 'prices/add_station.html', {'form': form})
+    
+    
+def register(request):
+    
+    registered = False
+    
+    if request.method == 'POST':
+        user_form = UserForm(data=request.POST)
+        profile_form = UserProfileForm(data=request.POST)
+        
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save()
+            user.set_password(user.password)
+            user.save()
+            
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            
+            if 'picture' in request.FILES:
+                profile.picture = request.FILES['picture']
+            profile.save()
+            registered = True
+            
+        else:
+            print user_form.errors, profile_form.errors
+    else:
+        user_form = UserForm()
+        profile_form = UserProfileForm()
+    return render(request,
+        'prices/register.html',
+        {
+            'user_form': user_form,
+            'profile_form': profile_form,
+            'registered': registered
+        }
+    )
+        
+    
+    
+    
+    
+    
+    
