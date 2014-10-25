@@ -1,0 +1,11 @@
+{% if stations %}
+    <ul class="nav nav-sidebar">
+    {% for station in stations %}
+        {% if station == curr_station %}
+			<li class="active">
+		{% else %}
+			<li> 
+		{% endif %}
+		<a href="{% url 'station'  station.slug %}">{{ station.name }}</a></li>
+    {% endfor %}
+{% endif %}

@@ -3,20 +3,27 @@
 {% load staticfiles %}
 
 {% block body_block %}  
-      <h1>FuelApp...</h1>
-	
-        hello world! <strong>{{ boldmessage }}</strong><br />
+    <div class="page-header">      
+		<h1>FuelApp...</h1>
+	</div>
+       
         <a href="{% url 'aboutus' %}">About Us</a><br />
 		<img src="{% static "img/nozzle.jpg" %}" height="200px" width="350px"/>
-		{% for station in stations %}
-			<li><a href="{% url 'station' station.slug %}">{{station.name}}</a>, {{station.city}} : {{station.company}}</li>
-		{% endfor %}
+		<div class="row placeholders">
+           <div class="col-xs-12 col-sm-6 placeholder">
+				<ul class="list-group">
+				{% for station in stations %}
+					<li class="list-group-item"><a href="{% url 'station' station.slug %}">{{station.name}}</a>, {{station.city}} : {{station.company}}</li>
+				{% endfor %}
+				</ul>
 		
-		<div id='cheapest'>
-			This is the cheapest station today: {{cheapest_station}}
-		</div>
-		<div id='add_station'>
-			<a href='add_station'> Add Station </a>
+				<div id='cheapest'>
+					This is the cheapest station today: {{cheapest_station}}
+				</div>
+				<div id='add_station'>
+					<a href='add_station'> Add Station </a>
+				</div>
+			</div>
 		</div>
 {% endblock %}
 

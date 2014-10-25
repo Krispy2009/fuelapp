@@ -39,7 +39,8 @@ DEFAULT_APPS = (
 )
 
 LOCAL_APPS = (
-    'prices',		
+    'prices',
+    'registration'	,	
 )
 
 MIDDLEWARE_CLASSES = (
@@ -57,6 +58,7 @@ INSTALLED_APPS = DEFAULT_APPS + LOCAL_APPS
 ROOT_URLCONF = 'fuelapp.urls'
 
 WSGI_APPLICATION = 'fuelapp.wsgi.application'
+
 
 
 # Database
@@ -82,7 +84,12 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOGIN_URL='/prices/login/'
+# Registration 
+REGISTRATION_OPEN = True
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+LOGIN_REDIRECT_URL = '/prices/'
+LOGIN_URL='/accounts/login/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
