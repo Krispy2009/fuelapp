@@ -51,6 +51,7 @@ def aboutus(request):
     ctx = {'boldmessage' : 'Hey ya'}
     return render(request, 'prices/about.html', ctx)
     
+
 def station(request, station_name_slug):
     ctx = {}
     
@@ -68,6 +69,7 @@ def station(request, station_name_slug):
         pass
     
     return render(request, 'prices/station.html', ctx)
+
 @login_required    
 def add_station(request):
     if request.method == 'POST':
@@ -88,8 +90,20 @@ def add_station(request):
     # Render the form with error messages (if any).
     return render(request, 'prices/add_station.html', {'form': form})
 
+def get_city_stations(request, city):
+    ctx = {}
+    stations = Station.objects.filter(city=city)
+    ctx.update({
+        'city': city,
+        'stations': stations
+    })
+    
+    if len(stations) == 0:
+        index()
+
 def add_price(request, station_name_slug):
     return HttpResponse('Will eventually add an add price page :) ')
+    
     
 
     

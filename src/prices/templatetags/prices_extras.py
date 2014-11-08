@@ -3,6 +3,8 @@ from prices.models import Station
 
 register = template.Library()
 
-@register.inclusion_tag('prices/stations.html')
-def get_stations_list(station=None):
-    return {'stations': Station.objects.all(), 'curr_station' : station}
+@register.inclusion_tag('prices/cities.html')
+def get_stations_list(city=None):
+    print 'HEEEE'
+    print city, Station.objects.filter(city=city) 
+    return {'stations': Station.objects.filter(city=city), 'curr_city' : city}
