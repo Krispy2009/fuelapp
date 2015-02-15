@@ -4,10 +4,18 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+CITY_CHOICES = (
+    ('NIC', 'Nicosia'),
+    ('LAR', 'Larnaca'),
+    ('LIM', 'Limassol'),
+    ('PAF', 'Paphos'),
+    ('FAM', 'Famagusta'),
+)
+
 class Station(models.Model):
     name    = models.CharField(max_length=128)
     company = models.CharField(max_length=32)
-    city    = models.CharField(max_length=16)
+    city    = models.CharField(max_length=16, choices=CITY_CHOICES, default='NIC')
     slug    = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
@@ -45,8 +53,14 @@ class UserProfile(models.Model):
 
 class PriceHistory(models.Model):
     product_id = models.ForeignKey(Product)
-    date       = models.DateTimeField(auto_now_add=True)
+    station_id = models.ForeignKey(Station)
+    date       = models.DateTimeField()
     price      = models.DecimalField(max_digits=5, decimal_places=4)
     
+    def save(self, *args, **kwargs):
+        print "self: %s, Type: %s" % (self.product_id.name, type(self.product_id.name))
+        slug_text = str(self.product_id.name) + self.date.strftime('%d%m%Y')
+        self.slug = slugify(slug_text)
+        super(PriceHistory, self).save(*args, **kwargs)   
     def __unicode__(self):
         return self.product_id

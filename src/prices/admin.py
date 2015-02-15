@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Station, Product, UserProfile
+from .models import Station, Product, UserProfile, PriceHistory
 
 # Register your models here.
 
@@ -10,5 +10,6 @@ class ProductAdmin(admin.ModelAdmin):
 admin.site.register(Station)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(UserProfile)
+admin.site.register(PriceHistory)
 
 
