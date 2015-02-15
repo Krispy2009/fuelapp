@@ -56,6 +56,7 @@ class PriceHistory(models.Model):
     station_id = models.ForeignKey(Station)
     date       = models.DateTimeField()
     price      = models.DecimalField(max_digits=5, decimal_places=4)
+    slug       = models.SlugField(unique=True, editable=False)
     
     def save(self, *args, **kwargs):
         print "self: %s, Type: %s" % (self.product_id.name, type(self.product_id.name))
@@ -63,4 +64,5 @@ class PriceHistory(models.Model):
         self.slug = slugify(slug_text)
         super(PriceHistory, self).save(*args, **kwargs)   
     def __unicode__(self):
-        return self.product_id
+        slug_text = str(self.product_id.name) + self.date.strftime('%d%m%Y')
+        return slug_text 
