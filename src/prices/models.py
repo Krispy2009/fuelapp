@@ -12,9 +12,17 @@ CITY_CHOICES = (
     ('FAM', 'Famagusta'),
 )
 
+COMPANY_CHOICES = (
+    ('PL', 'Petrolina'),
+    ('EX', 'ExxonMobil'),
+    ('HP', 'Hellenic Petroleum'),
+    ('LO', 'Lukoil')
+
+)
+
 class Station(models.Model):
     name    = models.CharField(max_length=128)
-    company = models.CharField(max_length=32)
+    company = models.CharField(max_length=32, choices=COMPANY_CHOICES, default='PL')
     city    = models.CharField(max_length=16, choices=CITY_CHOICES, default='NIC')
     slug    = models.SlugField(unique=True)
 
@@ -27,9 +35,7 @@ class Station(models.Model):
 
 
 class Product(models.Model):
-    station_id = models.ForeignKey(Station)
     name       = models.CharField(max_length=64)
-    price      = models.DecimalField(max_digits=5, decimal_places=4)
     date       = models.DateTimeField(auto_now_add=True)
     slug       = models.SlugField(unique=True)
 
@@ -38,6 +44,10 @@ class Product(models.Model):
         super(Product, self).save(*args, **kwargs)   
     def __unicode__(self):
         return self.name
+
+class Company(models.Model):
+    name = models.CharField(max_length=64)
+    slug = models.SlugField(unique=True)
 
 class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
@@ -63,6 +73,7 @@ class PriceHistory(models.Model):
         slug_text = str(self.product_id.name) + self.date.strftime('%d%m%Y')
         self.slug = slugify(slug_text)
         super(PriceHistory, self).save(*args, **kwargs)   
+    
     def __unicode__(self):
         slug_text = str(self.product_id.name) + self.date.strftime('%d%m%Y')
         return slug_text 

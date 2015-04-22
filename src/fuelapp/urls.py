@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     #url(r'^$', 'fuelapp.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
+    url(r'^$', include('prices.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^prices/', include('prices.urls')),
     url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),

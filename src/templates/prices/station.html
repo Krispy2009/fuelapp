@@ -9,7 +9,7 @@
             {% if products %}
             <ul>
                 {% for prod in products %}
-                <li><a href="{{ prod.name }}">{{prod.name}} </a> | {{ prod.price }} | {{prod.date}}</li>
+                <li><a href="{{ prod.product_id }}">{{prod.product_id}} </a> | {{ prod.price }} | {{prod.date}}</li>
                 {% endfor %}
             </ul>
             {% else %}
