@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 
-from .models import Station, Product, PriceHistory
+from .models import Station, Product, HistoricalPrice
 from fuelapp.forms import StationForm, UserForm, UserProfileForm
 
 # Create your views here.
@@ -58,7 +58,7 @@ def station(request, station_name_slug):
     try:
         # Create a Station object using the station_name_slug
         station = Station.objects.get(slug=station_name_slug)
-        products = PriceHistory.objects.filter(station_id=station.id)        
+        products = HistoricalPrice.objects.filter(station_id=station.id)        
         
         ctx.update({
             'products': products,

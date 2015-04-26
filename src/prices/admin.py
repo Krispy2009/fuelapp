@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Station, Company, Product, UserProfile, PriceHistory
+from .models import Station, Company, Product, UserProfile, HistoricalPrice
 
 # Register your models here.
 
@@ -14,7 +14,7 @@ class CompanyAdmin(admin.ModelAdmin):
 admin.site.register(Station)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(UserProfile)
-admin.site.register(PriceHistory)
+admin.site.register(HistoricalPrice)
 admin.site.register(Company)
 
 

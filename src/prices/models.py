@@ -49,6 +49,9 @@ class Company(models.Model):
     name = models.CharField(max_length=64)
     slug = models.SlugField(unique=True)
 
+    class Meta:
+        verbose_name_plural = 'companies'
+
 class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User)
@@ -61,18 +64,21 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return self.user.username
 
-class PriceHistory(models.Model):
+class HistoricalPrice(models.Model):
     product_id = models.ForeignKey(Product)
     station_id = models.ForeignKey(Station)
     date       = models.DateTimeField()
     price      = models.DecimalField(max_digits=5, decimal_places=4)
     slug       = models.SlugField(unique=True, editable=False)
+
+    class Meta:
+        verbose_name_plural = 'historical prices'
     
     def save(self, *args, **kwargs):
         print "self: %s, Type: %s" % (self.product_id.name, type(self.product_id.name))
         slug_text = str(self.product_id.name) + self.date.strftime('%d%m%Y')
         self.slug = slugify(slug_text)
-        super(PriceHistory, self).save(*args, **kwargs)   
+        super(HistoricalPrice, self).save(*args, **kwargs)   
     
     def __unicode__(self):
         slug_text = str(self.product_id.name) + self.date.strftime('%d%m%Y')
