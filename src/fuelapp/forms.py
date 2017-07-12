@@ -1,21 +1,14 @@
 from django import forms
-from prices.models import Station, UserProfile
+from prices.models import Station, UserProfile, CITY_CHOICES, COMPANY_CHOICES
 from django.contrib.auth.models import User
 
 
 class StationForm(forms.ModelForm):
     
-    cities = (
-        ('nicosia', 'Nicosia'),
-        ('larnaca', 'Larnaca'),
-        ('paphos', 'Paphos'),
-        ('limassol', 'Limassol'),
-        ('famagusta', 'Famagusta')
-    )
     
     name    = forms.CharField(max_length=128, help_text="Station name")
-    company = forms.CharField(max_length=32,  help_text="Company name")
-    city    = forms.ChoiceField(choices=cities,  help_text="City")
+    company = forms.ChoiceField(choices=COMPANY_CHOICES, help_text="Company")
+    city    = forms.ChoiceField(choices=CITY_CHOICES,  help_text="City")
     slug    = forms.SlugField(widget=forms.HiddenInput(), required=False)
     
     # An inline class to provide additional information on the form.

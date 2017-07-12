@@ -1,3 +1,9 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block body_block %}
+
 {% if companies %}
 <ul class="nav nav-sidebar">
    {% for company in companies %}
@@ -6,6 +12,7 @@
 		{% else %}
 			<li> 
 		{% endif %}
-		<a href="{% url 'company' company %}">{{ company.name }}</a></li>
+		<a href="{% url 'company' company.name %}">{{ company.name }}</a></li>
    {% endfor %}
 {% endif %}
+{% endblock %}

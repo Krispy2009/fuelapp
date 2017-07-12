@@ -4,16 +4,20 @@
 
 {% block body_block %}  
     <div class="page-header">      
-		<h1>FuelApp...</h1>
+		<h1>FuelApp</h1>
+		<h3>The cheapest fuel prices in Cyprus... Crowdsourced!</h3>
 	</div>
        
-        <a href="{% url 'aboutus' %}">About Us</a><br />
-		<img src="{% static "img/nozzle.jpg" %}" height="200px" width="350px"/>
+        
+		<img src="{% static "img/nozzle.jpg" %}" height="70%" width="100%"/>
 		<div class="row placeholders">
            <div class="col-xs-12 col-sm-6 placeholder">
 				<ul class="list-group">
+				<li class="list-group-item"><a href="{% url 'aboutus' %}"> About Us </a></li>
+				<li class="list-group-item"><a href="{% url 'stations' %}"> Stations </a></li>
+				<li class="list-group-item"><a href="{% url 'companies' %}"> Companies </a></li>
 				{% for station in stations %}
-					<li class="list-group-item"><a href="{% url 'station' station.slug %}">{{station.name}}</a>, {{station.city}} : {{station.company}}</li>
+					<li class="list-group-item"><a href="{% url 'station' station.slug %}">{{station.name}}</a> | {{station.city}} | {{station.company}}</li>
 				{% endfor %}
 				</ul>
 		

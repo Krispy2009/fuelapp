@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 
-from .models import Station, Product, HistoricalPrice
+from .models import Station, Product, HistoricalPrice, Company, CITY_CHOICES, COMPANY_CHOICES
 from fuelapp.forms import StationForm, UserForm, UserProfileForm
 
 # Create your views here.
@@ -18,7 +18,9 @@ def index(request):
     ctx = {
         'boldmessage'      : 'This is bold message',
         'stations'         : stations,
-        'cheapest_station' : cheapest_station
+        'cheapest_station' : cheapest_station,
+        'which_city'       : CITY_CHOICES,
+        'which_company'    : COMPANY_CHOICES
     }
     
     #Get Visits 
@@ -51,6 +53,10 @@ def aboutus(request):
     ctx = {'boldmessage' : 'Hey ya'}
     return render(request, 'prices/about.html', ctx)
     
+def stations(request):
+    stations = Station.objects.all()
+
+    return render(request, 'prices/stations.html', {'stations': stations})
 
 def station(request, station_name_slug):
     ctx = {}
@@ -100,17 +106,17 @@ def get_city_stations(request, city):
     if len(stations) == 0:
         index()
 
+    return render(request, 'prices/stations.html', ctx)
+
 def add_price(request, station_name_slug):
     return HttpResponse('Will eventually add an add price page :) ')
 
 
-def all_companies(request):
+def companies(request):
 
-    ctx = {}
+    companies = Company.objects.all()
 
-    all_companies = Company.objects.all()
-
-    return render(request, 'prices/companies.html', ctx)
+    return render(request, 'prices/companies.html', {'companies' : companies})
 
 def company(request, company_name_slug):
     ctx = {}

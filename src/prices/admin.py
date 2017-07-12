@@ -15,6 +15,6 @@ admin.site.register(Station)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(UserProfile)
 admin.site.register(HistoricalPrice)
-admin.site.register(Company)
+admin.site.register(Company, CompanyAdmin)
 
 

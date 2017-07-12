@@ -1,3 +1,8 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block body_block %}
 {% if stations %}
     <ul class="nav nav-sidebar">
     {% for station in stations %}
@@ -9,3 +14,4 @@
 		<a href="{% url 'station'  station.slug %}">{{ station.name }}</a></li>
     {% endfor %}
 {% endif %}
+{% endblock %}
